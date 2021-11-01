@@ -2,12 +2,12 @@ import { useState, useEffect } from "react"
 import "./App.css"
 import SingleCard from "./components/singleCard"
 const cardImages = [
-  { src: "/img/helmet-1.png", name: "helmet" },
-  { src: "/img/potion-1.png", name: "potion" },
-  { src: "/img/ring-1.png", name: "ring" },
-  { src: "/img/scroll-1.png", name: "scroll" },
-  { src: "/img/shield-1.png", name: "shield" },
-  { src: "/img/sword-1.png", name: "sword" },
+  { src: "/img/helmet-1.png", name: "helmet", matched: false },
+  { src: "/img/potion-1.png", name: "potion", matched: false },
+  { src: "/img/ring-1.png", name: "ring", matched: false },
+  { src: "/img/scroll-1.png", name: "scroll", matched: false },
+  { src: "/img/shield-1.png", name: "shield", matched: false },
+  { src: "/img/sword-1.png", name: "sword", matched: false },
 ]
 
 function App() {
@@ -40,13 +40,19 @@ function App() {
       return
     }
     if (first?.name === second?.name) {
-      console.log("Match")
-    } else {
-      console.log("No match")
+      setCards((prevCards) => {
+        return prevCards.map((card) => {
+          if (card.name === first.name) {
+            return { ...card, matched: true }
+          } else {
+            return card
+          }
+        })
+      })
     }
     resetTurn()
   }
-
+  console.log(cards)
   //reset choices & increase turn
   const resetTurn = () => {
     setChoiceOne(null)
