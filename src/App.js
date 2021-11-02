@@ -50,7 +50,7 @@ function App() {
         })
       })
     }
-    resetTurn()
+    setTimeout(() => resetTurn(), 1000)
   }
   console.log(cards)
   //reset choices & increase turn
@@ -70,7 +70,12 @@ function App() {
       <div className="card-grid">
         {cards.map((card) => {
           return (
-            <SingleCard key={card.id} card={card} handleChoice={handleChoice} />
+            <SingleCard
+              key={card.id}
+              card={card}
+              handleChoice={handleChoice}
+              flipped={card === choiceOne || card === choiceTwo || card.matched}
+            />
           )
         })}
       </div>
