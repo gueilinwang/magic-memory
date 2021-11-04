@@ -50,7 +50,7 @@ function App() {
         })
       })
     }
-    setTimeout(() => resetTurn(), 1000)
+    setTimeout(() => resetTurn(), 400)
   }
   console.log(cards)
   //reset choices & increase turn
