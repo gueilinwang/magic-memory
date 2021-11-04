@@ -28,6 +28,8 @@ function App() {
       shuffledCards[j] = temp
     }
     setCards(shuffledCards)
+    setChoiceOne(null)
+    setChoiceTwo(null)
     setTurns(0)
   }
   //handle choise
@@ -64,6 +66,17 @@ function App() {
   useEffect(() => {
     compareChoice(choiceOne, choiceTwo)
   }, [choiceTwo])
+  useEffect(() => {
+    shuffleCards()
+  }, [])
+  useEffect(() => {
+    if (cards.length > 0 && cards.every((card) => card.matched)) {
+      setTimeout(() => {
+        alert("You win!!!")
+        shuffleCards()
+      }, 1000)
+    }
+  }, [cards])
 
   return (
     <div className="App">
@@ -82,6 +95,7 @@ function App() {
           )
         })}
       </div>
+      <p>Turns:{turns}</p>
     </div>
   )
 }
