@@ -15,6 +15,7 @@ function App() {
   const [turns, setTurns] = useState(0)
   const [choiceOne, setChoiceOne] = useState(null)
   const [choiceTwo, setChoiceTwo] = useState(null)
+  const [disabled, setDisabled] = useState(false) //當值為true時,卡牌將無法再被點擊
   //shuffle cards
   const shuffleCards = () => {
     const shuffledCards = [...cardImages, ...cardImages] //將卡牌由6張轉為各2張,total 12張
@@ -39,6 +40,7 @@ function App() {
     if (!first || !second) {
       return
     }
+    setDisabled(true)
     if (first?.name === second?.name) {
       setCards((prevCards) => {
         return prevCards.map((card) => {
@@ -50,14 +52,14 @@ function App() {
         })
       })
     }
-    setTimeout(() => resetTurn(), 400)
+    setTimeout(() => resetTurn(), 700)
   }
-  console.log(cards)
   //reset choices & increase turn
   const resetTurn = () => {
     setChoiceOne(null)
     setChoiceTwo(null)
     setTurns((prevTurns) => prevTurns + 1)
+    setDisabled(false)
   }
   useEffect(() => {
     compareChoice(choiceOne, choiceTwo)
@@ -75,6 +77,7 @@ function App() {
               card={card}
               handleChoice={handleChoice}
               flipped={card === choiceOne || card === choiceTwo || card.matched}
+              disabled={disabled}
             />
           )
         })}
